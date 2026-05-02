@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/nutrimed
+    username: postgres
+    password: Toloveru212
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  # MongoDB desactivado temporalmente hasta levantar Docker
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration
+
+google:
+  oauth:
+    client-id: 261849466585-1kr2mmin7f3ul6egqmbn5ovpfo5oh780.apps.googleusercontent.com
+
+jwt:
+  secret: nutrimed_secret_key_para_jwt_minimo_256_bits_requerido_2024
+  access-expiration: 86400000
+  refresh-expiration: 604800000
+
+server:
+  port: 8080
+  address: 0.0.0.0
