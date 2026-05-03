@@ -10,6 +10,8 @@ import com.tuapp.nutrimed_backend.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.tuapp.nutrimed_backend.disease.dto.DiseaseDto;   // ← nuevo
+import com.tuapp.nutrimed_backend.user.dto.UserProfileDto;  // ← nuevo
 
 import java.util.List;
 
@@ -61,5 +63,36 @@ public class UserService {
         return userRepository.findById(userId)
                 .map(u -> !u.isOnboardingDone())
                 .orElse(true);
+    }
+    public UserProfileDto getUserProfile(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        List<DiseaseDto> diseases = userDiseaseRepository
+                .findByUserIdAndIsActiveTrue(userId)
+                .stream()
+                .map(ud -> new DiseaseDto(
+                        ud.getDisease().getId(),
+                        ud.getDisease().getName(),
+                        ud.getDisease().getSlug(),
+                        ud.getDisease().getDescription(),
+                        ud.getDisease().getCategory(),
+                        ud.getDisease().getIconCode()
+                ))
+                .toList();
+
+        return new UserProfileDto(
+                user.getId(),
+                user.getName(),
+                user.getEmail(),
+                user.getCountryCode(),
+                user.getSex(),
+                user.getBirthYear(),
+                user.getWeightKg(),
+                user.getHeightCm(),
+                user.getActivityLevel(),
+                user.getHealthGoal(),
+                diseases
+        );
     }
 }
