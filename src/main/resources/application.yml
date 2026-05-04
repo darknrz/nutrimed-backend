@@ -31,3 +31,9 @@ jwt:
 server:
   port: 8080
   address: 0.0.0.0
+
+cloudinary:
+  cloud-name: dca1gayi8
+  upload-preset: nutrimed_avatars
+  api-key: 851714142616528
+  api-secret: s9hwBNHpFZ_bOvv5QemW-XMosco

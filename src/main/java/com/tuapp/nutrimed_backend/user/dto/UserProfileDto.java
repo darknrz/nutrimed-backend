@@ -7,6 +7,7 @@ public record UserProfileDto(
         Long         id,
         String       name,
         String       email,
+        String       picture,
         String       countryCode,
         String       sex,
         Integer      birthYear,
@@ -15,4 +16,4 @@ public record UserProfileDto(
         String       activityLevel,
         String       healthGoal,
         List<DiseaseDto> diseases
-) {}
+        ) {}
